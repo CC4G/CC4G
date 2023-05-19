@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+group 'cc4g'
+version '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation(gradleApi())
+    implementation('org.apache.commons:commons-compress:1.11')
+    implementation('org.apache.commons:commons-lang3:3.4')
+    implementation('commons-io:commons-io:2.6')
+    implementation('com.google.code.gson:gson:2.8.9')
+}
+
+publishing {
+    repositories {
+        maven {
+            url "${projectDir}/repositories"
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            from components.java
+        }
+    }
+}
